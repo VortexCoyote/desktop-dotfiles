@@ -1,0 +1,159 @@
+# -------------------------------------------------------------------------------
+# -- Settings
+
+font pango:monospace 8
+set $refresh_i3status killall -SIGUSR1 i3status
+
+focus_follows_mouse no
+
+workspace_auto_back_and_forth yes
+
+gaps inner 8
+gaps outer 0
+smart_gaps on
+smart_borders on
+
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+
+client.focused          #c4bbb4     $bg         $fg     $bg       #c4bbb4
+client.focused_inactive #0b0f0c     $bg         $fg     $bg       #000000
+client.unfocused        $bg         $bg         $fg     $bg       #0b0f0c
+client.urgent           $bg         $bg         $fg     $bg       $bg
+client.placeholder      $bg         $bg         $fg     $bg       $bg
+
+client.background       $bg
+
+# -------------------------------------------------------------------------------
+# -- Auto-start
+
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+
+exec --no-startup-id feh --bg-fill /home/x3tr0v/Pictures/Wallpapers/flower-dark.jpg
+exec --no-startup-id xrandr --output DP-2 --mode 1920x1080 --primary --output HDMI-0 --mode 1280x720 --right-of DP-2
+exec --no-startup-id picom --config ~/.config/picom/picom.conf -b --experimental-backends
+exec --no-startup-id flameshot
+
+exec --no-startup-id dunst
+exec --no-startup-id polybar primary
+exec_always --no-startup-id flashfocus
+
+# -------------------------------------------------------------------------------
+# -- Pop-up utilities
+
+bindsym $mod+a exec --no-startup-id scratchcat volume-mixer ncpamixer
+bindsym $mod+p exec --no-startup-id scratchcat system-monitor htop
+bindsym $mod+c exec --no-startup-id scratchcat calculator calc
+# bindsym $mod+e exec --no-startup-id scratchcat file-explorer ranger
+# bindsym $mod+d exec --no-startup-id scratchcat calender calcurse
+
+# -------------------------------------------------------------------------------
+# -- Routines
+
+for_window [all] border none
+for_window [class="feh"] floating enable, sticky enable, border pixel 0, move absolute position 0 px 0 px
+for_window [instance="scratchcat"] floating enable, resize set 1024px 768px, move position center
+
+for_window [all] [con_mark="move_right"] move right, unmark 
+for_window [all] [con_mark="move_down"]  move down, unmark 
+
+# -------------------------------------------------------------------------------
+# -- Key-bindings
+
+set $mod Mod4
+
+set $key_left   h
+set $key_down   j
+set $key_up     k
+set $key_right  l
+
+set $insert_h   i
+set $insert_v   o
+
+set $quit       q
+set $del        d
+
+set $window_swap    exec --no-startup-id i3-window-tool swap
+set $window_focus   exec --no-startup-id i3-window-tool focus
+set $window_move    exec --no-startup-id i3-window-tool move
+set $window_resize  exec --no-startup-id i3-resize-tool resize
+
+bindsym $mod+$key_left  $window_focus left
+bindsym $mod+$key_down  $window_focus down
+bindsym $mod+$key_up    $window_focus up
+bindsym $mod+$key_right $window_focus right
+
+bindsym $mod+1 workspace number "1"
+bindsym $mod+2 workspace number "2"
+bindsym $mod+3 workspace number "3"
+bindsym $mod+4 workspace number "4"
+bindsym $mod+5 workspace number "5"
+bindsym $mod+6 workspace number "6"
+bindsym $mod+7 workspace number "7"
+bindsym $mod+8 workspace number "8"
+bindsym $mod+9 workspace number "9"
+bindsym $mod+0 workspace number "10"
+
+bindsym $mod+$quit kill
+bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+space  exec --no-startup-id rofi -show drun
+
+bindsym $mod+Control+$insert_h split h
+bindsym $mod+Control+$insert_v split v
+
+bindsym $mod+$insert_h split h; exec --no-startup-id rofi -show drun
+bindsym $mod+$insert_v split v; exec --no-startup-id rofi -show drun
+
+bindsym $mod+Shift+$key_left    split h; exec --no-startup-id alacritty; mark "move_right"
+bindsym $mod+Shift+$key_down    split v; exec --no-startup-id alacritty
+bindsym $mod+Shift+$key_up      split v; exec --no-startup-id alacritty; mark "move_down"
+bindsym $mod+Shift+$key_right   split h; exec --no-startup-id alacritty
+
+bindsym $mod+e mode "edit"; exec --no-startup-id picom-trans -c -o 50
+mode "edit" {
+
+    bindsym $key_left           $window_swap    left
+    bindsym $key_down           $window_swap    down
+    bindsym $key_up             $window_swap    up
+    bindsym $key_right          $window_swap    right
+
+    bindsym Control+$key_left   $window_move    left        1
+    bindsym Control+$key_down   $window_move    down        1
+    bindsym Control+$key_up     $window_move    up          1
+    bindsym Control+$key_right  $window_move    right       1
+
+    bindsym Shift+$key_left     $window_resize  horizontal  -100 
+    bindsym Shift+$key_down     $window_resize  vertical    100 
+    bindsym Shift+$key_up       $window_resize  vertical    -100 
+    bindsym Shift+$key_right    $window_resize  horizontal  100 
+
+    bindsym 1 move container to workspace number "1" ;workspace number "1"
+    bindsym 2 move container to workspace number "2" ;workspace number "2"
+    bindsym 3 move container to workspace number "3" ;workspace number "3"
+    bindsym 4 move container to workspace number "4" ;workspace number "4"
+    bindsym 5 move container to workspace number "5" ;workspace number "5"
+    bindsym 6 move container to workspace number "6" ;workspace number "6"
+    bindsym 7 move container to workspace number "7" ;workspace number "7"
+    bindsym 8 move container to workspace number "8" ;workspace number "8"
+    bindsym 9 move container to workspace number "9" ;workspace number "9"
+    bindsym 0 move container to workspace number "10";workspace number "10"
+
+    bindsym $del kill; mode "default"
+    bindsym Escape mode "default"; exec --no-startup-id picom-trans -r
+}
+
+bindsym $mod+Shift+r restart
+
+bindsym XF86MonBrightnessUp     exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown   exec xbacklight -dec 20
+bindsym XF86AudioRaiseVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute           exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute        exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym Shift+Print             exec flameshot gui
+bindsym $mod+Print              exec flameshot gui
+bindsym $mod+Shift+P            exec --no-startup-id picom --config ~/.config/picom/picom.conf -b --experimental-backends
+bindsym $mod+Shift+O            exec pkill picom
+bindsym $mod+Escape             exec --no-startup-id i3lock-custom

@@ -1,0 +1,39 @@
+#! /bin/sh
+
+name="scratchcat-$1"; shift 1
+commands="$*"
+
+window="$(xdotool search --limit 1 --classname "$name")"
+
+# window not found
+if test -z "$window"; then
+
+    # spawn window
+    alacritty --class="$name" --title $name --command $commands &
+
+else # window found
+
+    # is window visible?
+    if xdotool search --limit 1 --onlyvisible --classname "$name"; then
+
+    # is window in focus?
+        if test "$(xdotool getwindowfocus)" -eq "$window"; then
+
+            # hide/unmap window
+            xdotool windowunmap "$window"
+
+        else # not focused
+
+            # focus window
+            xdotool windowactivate "$window"
+        fi
+
+    else # window isnt visible
+
+        # move window to current desktop
+        xdotool set_desktop_for_window "$window" "$(xdotool get_desktop)"
+
+        # unhide/map window
+        xdotool windowmap "$window"
+    fi
+fi

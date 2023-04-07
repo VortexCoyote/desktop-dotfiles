@@ -1,0 +1,5 @@
+configuration  {
+}
+
+@theme "~/.config/rofi/rofi-copland.css"
+

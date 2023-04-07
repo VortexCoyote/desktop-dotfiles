@@ -1,0 +1,9 @@
+Xephyr -br -ac -noreset -screen 1160x690+1980+15 :10 & 
+
+DISPLAY=:10 brave &
+
+sleep 2
+
+DISPLAY=:10 xdotool search --onlyvisible --class brave windowsize 100% 100% windowmove 0 0 &
+
+# remote-touchpad

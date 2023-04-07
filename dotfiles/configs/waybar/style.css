@@ -1,0 +1,58 @@
+#workspaces {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#workspaces button {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#clock, #custom-sep, #pulseaudio, #temperature, #network, #battery {
+    color: rgba(255, 255, 255, 1.0);
+}                        
+
+window#waybar {
+    background: none;
+    font-family: JetBrainsMono Nerd Font;
+}
+
+window > box {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0px;
+    opacity: 0.9;
+}
+
+#workspaces {
+    margin: 0px 6px 0px 6px;
+    padding: 0px 2px 0px 0px;
+  border-radius: 50px;
+  font-size: 12px;    
+}
+
+#workspaces button {
+   padding: 6px 6px 6px 6px;
+}
+
+#workspaces button:hover {
+   box-shadow: inherit;
+    text-shadow: inherit;
+    background: transparent;
+    border: transparent;
+}
+
+#clock {
+    font-size: 1.2em;
+    margin: 8px 0px 2px 0px;
+}
+
+#custom-sep {
+    margin: 0px 0px 8px 0px;
+}
+
+#pulseaudio, #temperature, #network, #battery {
+    margin-bottom: 8px;
+}
+
+#network {
+    margin-bottom: 10px;
+}
+
