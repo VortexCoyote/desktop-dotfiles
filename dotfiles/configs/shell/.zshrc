@@ -1,13 +1,12 @@
 # path to your oh-my-zsh installation.
-export ZSH="/home/x3tr0v/.oh-my-zsh"
+export ZSH="/usr/share/oh-my-zsh"
 
 # see https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
 plugins=(
 	git
-   	zsh-autosuggestions
-	zsh-vi-mode
+	vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh

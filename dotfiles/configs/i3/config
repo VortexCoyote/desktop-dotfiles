@@ -32,7 +32,7 @@ exec --no-startup-id nm-applet
 
 exec --no-startup-id feh --bg-fill /home/x3tr0v/Pictures/Wallpapers/flower-dark.jpg
 exec --no-startup-id xrandr --output DP-2 --mode 1920x1080 --primary --output HDMI-0 --mode 1280x720 --right-of DP-2
-exec --no-startup-id picom --config ~/.config/picom/picom.conf -b --experimental-backends
+exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
 exec --no-startup-id flameshot
 
 exec --no-startup-id dunst
@@ -154,6 +154,6 @@ bindsym XF86AudioMicMute        exec --no-startup-id pactl set-source-mute @DEFA
 
 bindsym Shift+Print             exec flameshot gui
 bindsym $mod+Print              exec flameshot gui
-bindsym $mod+Shift+P            exec --no-startup-id picom --config ~/.config/picom/picom.conf -b --experimental-backends
+bindsym $mod+Shift+P            exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
 bindsym $mod+Shift+O            exec pkill picom
 bindsym $mod+Escape             exec --no-startup-id i3lock-custom

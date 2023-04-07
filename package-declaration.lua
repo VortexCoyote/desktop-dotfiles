@@ -24,6 +24,16 @@ packages["i3-wm"] = {
             conf = {
                 from = "./dotfiles/configs/alacritty/",
                 to = "~/.config/"
+            },
+            deps = {
+                ["ttf-firacode-nerd"] = {},
+                ["ttf-fira-code"] = {},
+                ["oh-my-zsh-git"] = {
+                    conf = {
+                        from = "./dotfiles/configs/shell/.zshrc",
+                        to = "~/"
+                    }
+                }
             }
         },
         ["rofi"] = {
@@ -46,9 +56,7 @@ packages["i3-wm"] = {
             }
         },
         ["flameshot"] = {},
-        ["flashfocus-git"] = {
-            aur = true
-        },
+        ["flashfocus-git"] = {},
         ["xrandr"] = {},
         ["picom"] = {
             conf = {
@@ -72,9 +80,7 @@ packages["i3-wm"] = {
                 ["pavucontrol"] = {}
             }
         },
-        ["ncpamixer"] = {
-            aur = true
-        },
+        ["ncpamixer"] = {},
         ["htop"] = {},
         ["calc"] = {},
         ["calcurse"] = {}
@@ -84,13 +90,9 @@ packages["i3-wm"] = {
 
 ResolveDependency = function(name, content)
     print("!!! RESOLVING DEP \"" .. name .. "\" !!!")
-    if content.aur == nil or content.aur == false then
-        print("!!! INSTALLING PACKAGE !!!")
-        os.execute("sudo pacman --noconfirm -S " .. name)
-    else
-        print("!!! INSTALLING AUR PACKAGE !!!")
-        -- install as aur
-    end
+
+    print("!!! INSTALLING PACKAGE !!!")
+    os.execute("yay --noconfirm -S " .. name)
 
     if content.conf ~= nil then
         print("!!! COPYING CONFIGS !!!")
