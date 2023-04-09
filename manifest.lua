@@ -20,6 +20,8 @@ manifest.package_jobs = {
         },
         post_jobs = {
             "chsh -s /bin/zsh",
+            "git clone https://github.com/zsh-users/zsh-autosuggestions ~/.config/oh-my-zsh/plugins/zsh-autosuggestions",
+            "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/oh-my-zsh/plugins/zsh-syntax-highlighting"
         },
         deps = {
             ["pkgfile"] = {
