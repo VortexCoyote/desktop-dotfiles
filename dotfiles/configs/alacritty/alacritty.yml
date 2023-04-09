@@ -21,7 +21,4 @@ font:
   italic:
     family: Fira Code
     style: Italic
-  size: 8
-
-shell:
- program: /usr/bin/zsh
+  size: 10

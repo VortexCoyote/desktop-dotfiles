@@ -11,10 +11,11 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# user configuration
+# env
 export LANG=en_US.UTF-8
 export EDITOR="cvim"
 export TERMINAL="alacritty"
+export PATH="${PATH}:$HOME/.local/bin"
 
 # aliases
 alias grepp='grep --color -snHC 1'

@@ -25,26 +25,38 @@ client.placeholder      $bg         $bg         $fg     $bg       $bg
 client.background       $bg
 
 # -------------------------------------------------------------------------------
+# -- Program-Definitions 
+
+set $window_swap    ~/.local/bin/i3-window-tool swap
+set $window_focus   ~/.local/bin/i3-window-tool focus
+set $window_move    ~/.local/bin/i3-window-tool move
+set $window_resize  ~/.local/bin/i3-resize-tool resize
+
+set $scratchcat     ~/.local/bin/scratchcat
+set $launch_polybar  ~/.local/bin/launch-polybar
+set $terminal       alacritty
+
+# -------------------------------------------------------------------------------
 # -- Auto-start
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
-exec --no-startup-id feh --bg-fill /home/x3tr0v/Pictures/Wallpapers/flower-dark.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/flower-dark.jpg
 exec --no-startup-id xrandr --output DP-2 --mode 1920x1080 --primary --output HDMI-0 --mode 1280x720 --right-of DP-2
 exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
 exec --no-startup-id flameshot
 
 exec --no-startup-id dunst
-exec --no-startup-id polybar primary
+exec --no-startup-id $launch_polybar
 exec_always --no-startup-id flashfocus
 
 # -------------------------------------------------------------------------------
 # -- Pop-up utilities
 
-bindsym $mod+a exec --no-startup-id scratchcat volume-mixer ncpamixer
-bindsym $mod+p exec --no-startup-id scratchcat system-monitor htop
-bindsym $mod+c exec --no-startup-id scratchcat calculator calc
+bindsym $mod+a exec --no-startup-id $scratchcat volume-mixer ncpamixer
+bindsym $mod+p exec --no-startup-id $scratchcat system-monitor htop
+bindsym $mod+c exec --no-startup-id $scratchcat calculator calc
 # bindsym $mod+e exec --no-startup-id scratchcat file-explorer ranger
 # bindsym $mod+d exec --no-startup-id scratchcat calender calcurse
 
@@ -74,15 +86,10 @@ set $insert_v   o
 set $quit       q
 set $del        d
 
-set $window_swap    exec --no-startup-id i3-window-tool swap
-set $window_focus   exec --no-startup-id i3-window-tool focus
-set $window_move    exec --no-startup-id i3-window-tool move
-set $window_resize  exec --no-startup-id i3-resize-tool resize
-
-bindsym $mod+$key_left  $window_focus left
-bindsym $mod+$key_down  $window_focus down
-bindsym $mod+$key_up    $window_focus up
-bindsym $mod+$key_right $window_focus right
+bindsym $mod+$key_left  exec --no-startup-id $window_focus left
+bindsym $mod+$key_down  exec --no-startup-id $window_focus down
+bindsym $mod+$key_up    exec --no-startup-id $window_focus up
+bindsym $mod+$key_right exec --no-startup-id $window_focus right
 
 bindsym $mod+1 workspace number "1"
 bindsym $mod+2 workspace number "2"
@@ -96,7 +103,7 @@ bindsym $mod+9 workspace number "9"
 bindsym $mod+0 workspace number "10"
 
 bindsym $mod+$quit kill
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id $terminal
 bindsym $mod+space  exec --no-startup-id rofi -show drun
 
 bindsym $mod+Control+$insert_h split h
@@ -105,28 +112,28 @@ bindsym $mod+Control+$insert_v split v
 bindsym $mod+$insert_h split h; exec --no-startup-id rofi -show drun
 bindsym $mod+$insert_v split v; exec --no-startup-id rofi -show drun
 
-bindsym $mod+Shift+$key_left    split h; exec --no-startup-id alacritty; mark "move_right"
-bindsym $mod+Shift+$key_down    split v; exec --no-startup-id alacritty
-bindsym $mod+Shift+$key_up      split v; exec --no-startup-id alacritty; mark "move_down"
-bindsym $mod+Shift+$key_right   split h; exec --no-startup-id alacritty
+bindsym $mod+Shift+$key_left    split h; exec --no-startup-id $terminal; mark "move_right"
+bindsym $mod+Shift+$key_down    split v; exec --no-startup-id $terminal
+bindsym $mod+Shift+$key_up      split v; exec --no-startup-id $terminal; mark "move_down"
+bindsym $mod+Shift+$key_right   split h; exec --no-startup-id $terminal
 
 bindsym $mod+e mode "edit"; exec --no-startup-id picom-trans -c -o 50
 mode "edit" {
 
-    bindsym $key_left           $window_swap    left
-    bindsym $key_down           $window_swap    down
-    bindsym $key_up             $window_swap    up
-    bindsym $key_right          $window_swap    right
+    bindsym $key_left           exec --no-startup-id $window_swap    left
+    bindsym $key_down           exec --no-startup-id $window_swap    down
+    bindsym $key_up             exec --no-startup-id $window_swap    up
+    bindsym $key_right          exec --no-startup-id $window_swap    right
 
-    bindsym Control+$key_left   $window_move    left        1
-    bindsym Control+$key_down   $window_move    down        1
-    bindsym Control+$key_up     $window_move    up          1
-    bindsym Control+$key_right  $window_move    right       1
+    bindsym Control+$key_left   exec --no-startup-id $window_move    left        1
+    bindsym Control+$key_down   exec --no-startup-id $window_move    down        1
+    bindsym Control+$key_up     exec --no-startup-id $window_move    up          1
+    bindsym Control+$key_right  exec --no-startup-id $window_move    right       1
 
-    bindsym Shift+$key_left     $window_resize  horizontal  -100 
-    bindsym Shift+$key_down     $window_resize  vertical    100 
-    bindsym Shift+$key_up       $window_resize  vertical    -100 
-    bindsym Shift+$key_right    $window_resize  horizontal  100 
+    bindsym Shift+$key_left     exec --no-startup-id $window_resize  horizontal  -100 
+    bindsym Shift+$key_down     exec --no-startup-id $window_resize  vertical    100 
+    bindsym Shift+$key_up       exec --no-startup-id $window_resize  vertical    -100 
+    bindsym Shift+$key_right    exec --no-startup-id $window_resize  horizontal  100 
 
     bindsym 1 move container to workspace number "1" ;workspace number "1"
     bindsym 2 move container to workspace number "2" ;workspace number "2"
