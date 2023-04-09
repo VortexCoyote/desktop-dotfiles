@@ -19,8 +19,16 @@ manifest.package_jobs = {
         },
         post_jobs = {
             "chsh -s /bin/zsh",
+        },
+        deps = {
+            ["pkgfile"] = {
+                post_jobs = {
+                    "sudo pkgfile -u"
+                }
+            }
         }
     },
+    ["xclip"] = { },
     ["i3-wm"] = {
         copy = {
             { from = "./dotfiles/configs/i3/", to = "~/.config/" },
@@ -99,7 +107,8 @@ manifest.package_jobs = {
                 },
                 deps = {
                     ["xbacklight"] = { },
-                    ["pavucontrol"] = { }
+                    ["pavucontrol"] = { },
+                    ["cozette-ttf"] = { }
                 }
             },
             ["ncpamixer"] = { },
