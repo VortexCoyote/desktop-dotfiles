@@ -1,8 +1,8 @@
-# path to your oh-my-zsh installation.
 export ZSH="/usr/share/oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.config/oh-my-zsh"
 
 # see https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="agnoster-copland"
 
 plugins=(
 	git
@@ -26,7 +26,7 @@ bindkey -M vicmd 'v' edit-command-line  # rebind 'vv' to just 'v', since visual-
 bindkey -M vicmd '^[' undefined-key # makes esc-esc work in normal-mode, don't remember why
 
 MODE_INDICATOR="%B%K{blue}%F{black} Normal %f%k%b"
-INSERT_MODE_INDICATOR="%B%K{yellow}%F{black} Insert %f%k%b"
+# INSERT_MODE_INDICATOR="%B%K{yellow}%F{black} Insert %f%k%b"
 
 # sources
 source $ZSH/oh-my-zsh.sh

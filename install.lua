@@ -6,48 +6,75 @@ end
 
 FormatCopyCommand = function(copy_job)
     local sudo = copy_job.as_root ~= nil and copy_job.as_root == true and "sudo " or ""
+    if sudo ~= "" then
+        print("               Requesting Root ...")
+    end
     return sudo .. "mkdir -p " .. copy_job.to .. " && " .. sudo .. "cp -a " .. copy_job.from .. " " .. FormatHome(copy_job.to)
 end
 
-ResolveDependency = function(name, package)
-    print("")
-    print("     > Resolving Dependency \"" .. name .. "\"")
-
-    print("")
-    print("     > Installing Package")
-    print("")
-    os.execute("yay --noconfirm -S " .. name)
-
-    if package.copy ~= nil then
-
+local install_commands = {
+    priority = { "--install-packages", "--copy-dot-files", "--run-post-jobs" },
+    ["--install-packages"] = function(name, _)
+        print("     > Resolving Dependency \"" .. name .. "\"")
         print("")
-        for _, copy_job in ipairs(package.copy) do
+        print("     > Installing Package")
+        print("")
+        os.execute("yay --noconfirm -S " .. name)
+    end,
+    ["--copy-dot-files"] = function(_, package)
+        if package.copy ~= nil then
+            for _, copy_job in ipairs(package.copy) do
+                print("     > Copying From: " .. copy_job.from)
+                print("               To:   " .. copy_job.to)
+                os.execute(FormatCopyCommand(copy_job))
+                print("")
+            end
+        end
+    end,
 
-            print("     > Copying From: " .. copy_job.from)
-            print("               To:   " .. copy_job.to)
-            print("")
-
-            os.execute(FormatCopyCommand(copy_job))
+    ["--run-post-jobs"] = function(_, package)
+        if package.post_jobs ~= nil then
+            for _, post_job in ipairs(package.post_jobs) do
+                print("     > Package Post-Job \"" .. FormatHome(post_job) .. "\"")
+                print("")
+                os.execute(FormatHome(post_job))
+            end
         end
     end
+}
 
-    if package.post_jobs ~= nil then
-        print("")
-        for _, post_job in ipairs(package.post_jobs) do
-            print("     > Package Post-Job \"" .. FormatHome(post_job) .. "\"")
-            print("")
-            os.execute(FormatHome(post_job))
-        end
+ResolvePackage = function(name, package, install_args)
+    for _, command_type in ipairs(install_args) do
+        install_commands[command_type](name, package)
     end
-
     if package.deps ~= nil then
         for dep_name, dep_package_job in pairs(package.deps) do
-            ResolveDependency(dep_name, dep_package_job)
+            ResolvePackage(dep_name, dep_package_job, install_args)
         end
     end
 end
 
-for name, package_job in pairs(manifest.package_jobs) do
-    ResolveDependency(name, package_job)
+-- main routine
+local commands_to_run = nil
+
+if arg[1] == nil then
+    commands_to_run = install_commands.priority or { }
+else
+    for _, command_type in ipairs(install_commands.priority) do
+        for _, arg_value in ipairs(arg) do
+            if arg_value == command_type then
+                if commands_to_run == nil then commands_to_run = { } end
+                table.insert(commands_to_run, command_type)
+            end
+        end
+    end
+end
+
+if commands_to_run == nil then
+    print("bad arguments, doing nothing :(")
+else
+    for name, package_job in pairs(manifest.package_jobs) do
+        ResolvePackage(name, package_job, commands_to_run)
+    end
 end
 

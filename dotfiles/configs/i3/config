@@ -57,8 +57,6 @@ exec_always --no-startup-id flashfocus
 bindsym $mod+a exec --no-startup-id $scratchcat volume-mixer ncpamixer
 bindsym $mod+p exec --no-startup-id $scratchcat system-monitor htop
 bindsym $mod+c exec --no-startup-id $scratchcat calculator calc
-# bindsym $mod+e exec --no-startup-id scratchcat file-explorer ranger
-# bindsym $mod+d exec --no-startup-id scratchcat calender calcurse
 
 # -------------------------------------------------------------------------------
 # -- Routines

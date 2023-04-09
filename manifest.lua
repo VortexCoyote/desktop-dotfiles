@@ -15,7 +15,8 @@ manifest.package_jobs = {
         copy = {
             { from = "./dotfiles/configs/shell/.zshrc", to = "~/" },
             { from = "./dotfiles/configs/shell/.bashrc", to = "~/" },
-            { from = "./dotfiles/configs/shell/.bash_profile", to = "~/" }
+            { from = "./dotfiles/configs/shell/.bash_profile", to = "~/" },
+            { from = "./dotfiles/configs/shell/oh-my-zsh/", to = "~/.config/" }
         },
         post_jobs = {
             "chsh -s /bin/zsh",
@@ -29,6 +30,14 @@ manifest.package_jobs = {
         }
     },
     ["xclip"] = { },
+    ["ranger"] = {
+        copy = {
+            { from = "./dotfiles/configs/ranger/", to = "~/.config/" }
+        },
+        post_jobs = {
+            "git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons"
+        }
+    },
     ["i3-wm"] = {
         copy = {
             { from = "./dotfiles/configs/i3/", to = "~/.config/" },
@@ -113,13 +122,7 @@ manifest.package_jobs = {
             },
             ["ncpamixer"] = { },
             ["htop"] = { },
-            ["calc"] = { },
-            ["calcurse"] = { },
-            ["ranger"] = {
-                copy = {
-                    { from = "./dotfiles/configs/ranger/", to = "~/.config/" }
-                }
-            }
+            ["calc"] = { }
         }
     }
 }
