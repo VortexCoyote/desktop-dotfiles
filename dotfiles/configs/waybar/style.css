@@ -1,58 +1,73 @@
-#workspaces {
-    background-color: rgba(0, 0, 0, 0.5);
-}
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+ 
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
 
-#workspaces button {
-    color: rgba(0, 0, 0, 0.5);
-}
 
-#clock, #custom-sep, #pulseaudio, #temperature, #network, #battery {
-    color: rgba(255, 255, 255, 1.0);
-}                        
+/*
+Polar Night
+nord0  #2e3440
+nord1  #3b4252
+nord2  #434c5e
+nord3  #4c566a
+Snow Storm
+nord4  #d8dee9
+nord5  #e5e9f0
+nord6  #eceff4
+Frost
+nord7  #8fbcbb
+nord8  #88c0d0
+nord9  #81a1c1
+nord10 #5e81ac
+Aurora
+nord11 #bf616a
+nord12 #d08770
+nord13 #ebcb8b
+nord14 #a3be8c
+nord15 #b48ead
+*/
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+ 
+/* Reset all styles */
+
+* {
+    padding: 0 0;
+    font-family:Fira Code;
+    font-size: 13;
+    margin-right: 3px;
+    margin-left: 3px;
+}
 
 window#waybar {
-    background: none;
-    font-family: JetBrainsMono Nerd Font;
-}
-
-window > box {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 0px;
-    opacity: 0.9;
-}
-
-#workspaces {
-    margin: 0px 6px 0px 6px;
-    padding: 0px 2px 0px 0px;
-  border-radius: 50px;
-  font-size: 12px;    
+    background:rgba (0, 0, 0, 0.6);
 }
 
 #workspaces button {
-   padding: 6px 6px 6px 6px;
+    padding: 0px 0px;
+    color: #eceff4;
 }
 
-#workspaces button:hover {
-   box-shadow: inherit;
-    text-shadow: inherit;
-    background: transparent;
-    border: transparent;
+#workspaces button.active {
+    border-bottom: 2px solid #eceff4;
+    border-radius: 0;
+    color: #eceff4;
 }
 
-#clock {
-    font-size: 1.2em;
-    margin: 8px 0px 2px 0px;
+#mode {
+    color: #ebcb8b;
 }
 
-#custom-sep {
-    margin: 0px 0px 8px 0px;
+#clock, #battery, #cpu, #memory,#idle_inhibitor, #temperature,#custom-keyboard-layout, #backlight, #network, #pulseaudio, #mode, #tray, #window,#custom-launcher,#custom-power,#custom-pacman {
+    padding: 0 3px;
+    color: #eceff4;
 }
-
-#pulseaudio, #temperature, #network, #battery {
-    margin-bottom: 8px;
-}
-
-#network {
-    margin-bottom: 10px;
-}
-

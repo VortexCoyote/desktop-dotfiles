@@ -1,4 +1,4 @@
-local manifest = require "manifest"
+local manifest = require(arg[1])
 
 FormatHome = function(path)
     return path:gsub("~/", manifest.user_home)
@@ -12,8 +12,12 @@ FormatCopyCommand = function(copy_job)
     return sudo .. "mkdir -p " .. copy_job.to .. " && " .. sudo .. "cp -a " .. copy_job.from .. " " .. FormatHome(copy_job.to)
 end
 
+FormatUpdateDotfilesCommand = function(copy_job)
+    return "cp -a " .. FormatHome(copy_job.copy_to) .. " " .. copy_job.copy_from
+end
+
 local install_commands = {
-    priority = { "--install-packages", "--copy-dot-files", "--run-post-jobs" },
+    priority = { "--install-packages", "--copy-dotfiles", "--run-post-jobs" },
     ["--install-packages"] = function(name, _)
         print("     > Resolving Dependency \"" .. name .. "\"")
         print("")
@@ -21,7 +25,7 @@ local install_commands = {
         print("")
         os.execute("yay --noconfirm -S " .. name)
     end,
-    ["--copy-dot-files"] = function(_, package)
+    ["--copy-dotfiles"] = function(_, package)
         if package.copy ~= nil then
             for _, copy_job in ipairs(package.copy) do
                 print("     > Copying From: " .. copy_job.from)
@@ -31,7 +35,6 @@ local install_commands = {
             end
         end
     end,
-
     ["--run-post-jobs"] = function(_, package)
         if package.post_jobs ~= nil then
             for _, post_job in ipairs(package.post_jobs) do
@@ -57,7 +60,7 @@ end
 -- main routine
 local commands_to_run = nil
 
-if arg[1] == nil then
+if arg[2] == nil then
     commands_to_run = install_commands.priority or { }
 else
     for _, command_type in ipairs(install_commands.priority) do
