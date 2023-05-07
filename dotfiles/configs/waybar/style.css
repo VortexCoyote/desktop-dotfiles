@@ -1,44 +1,4 @@
-/* =============================================================================
- *
- * Waybar configuration
- *
- * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
- *
- * =========================================================================== */
- 
-/* -----------------------------------------------------------------------------
- * Keyframes
- * -------------------------------------------------------------------------- */
-
-
-/*
-Polar Night
-nord0  #2e3440
-nord1  #3b4252
-nord2  #434c5e
-nord3  #4c566a
-Snow Storm
-nord4  #d8dee9
-nord5  #e5e9f0
-nord6  #eceff4
-Frost
-nord7  #8fbcbb
-nord8  #88c0d0
-nord9  #81a1c1
-nord10 #5e81ac
-Aurora
-nord11 #bf616a
-nord12 #d08770
-nord13 #ebcb8b
-nord14 #a3be8c
-nord15 #b48ead
-*/
-
-/* -----------------------------------------------------------------------------
- * Base styles
- * -------------------------------------------------------------------------- */
- 
-/* Reset all styles */
+@import url('/home/x3tr0v/.cache/wal/colors-waybar.css');
 
 * {
     padding: 0 0;
@@ -49,25 +9,33 @@ nord15 #b48ead
 }
 
 window#waybar {
-    background:rgba (0, 0, 0, 0.6);
+    background: alpha(@background, 0.6);
+    color: @foreground;
 }
 
 #workspaces button {
     padding: 0px 0px;
-    color: #eceff4;
+    color: @foreground;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    border: none;
+    background: none;
 }
 
 #workspaces button.active {
-    border-bottom: 2px solid #eceff4;
+    border-bottom: 2px solid @foreground;
     border-radius: 0;
-    color: #eceff4;
+    color: @foreground;
 }
 
 #mode {
-    color: #ebcb8b;
+    color: @foreground;
 }
 
 #clock, #battery, #cpu, #memory,#idle_inhibitor, #temperature,#custom-keyboard-layout, #backlight, #network, #pulseaudio, #mode, #tray, #window,#custom-launcher,#custom-power,#custom-pacman {
     padding: 0 3px;
-    color: #eceff4;
+    color: @foreground;
 }

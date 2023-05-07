@@ -1,5 +1,15 @@
-configuration  {
+configuration {
+    font: "Fira Code 10";
+    width: 30;
+    line-margin: 10;
+
+    display-ssh:    "";
+    display-run:    "";
+	display-drun:   "";
+    display-window: "";
+    display-combi:  "";
+    show-icons:     false;
+
 }
 
-@theme "~/.config/rofi/rofi-copland.css"
-
+@import "~/.cache/wal/colors-rofi-copland.rasi"

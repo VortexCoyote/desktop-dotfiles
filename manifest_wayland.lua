@@ -31,11 +31,38 @@ manifest.package_jobs = {
             }
         }
     },
+    ["ranger"] = {
+        copy = {
+            { from = "./dotfiles/configs/ranger/", to = "~/.config/" }
+        },
+        post_jobs = {
+            "git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons"
+        }
+    },
+    ["imv"] = {
+        copy = {
+            { from = "./dotfiles/configs/imv/", to = "~/.config/" }
+        },
+    },
     ["hyprland"] = {
         copy = {
             { from = "./dotfiles/configs/hypr/", to = "~/.config/" },
         },
         deps = {
+            ["alacritty"] = {
+                copy = {
+                    { from = "./dotfiles/configs/alacritty/", to = "~/.config/" }
+                },
+                deps = {
+                    ["ttf-firacode-nerd"] = { },
+                    ["ttf-fira-code"] = { },
+                    ["ttf-nerd-fonts-symbols-common"] = {
+                        copy = {
+                            { from = "./dotfiles/configs/fontconfig/", to = "~/.config/" }
+                        }
+                    }
+                }
+            },
             ["xdg-desktop-portal-wlr"] = { },
             ["rofi-lbonn-wayland-git"] = {
                 copy = {

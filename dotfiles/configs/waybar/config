@@ -1,12 +1,12 @@
 {
     "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
+    //"mode": "overlay",
     // Choose the order of the modules
     "modules-left": ["wlr/workspaces"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "sway/language", "battery", "battery#bat2", "tray"],
+    "modules-right": ["pulseaudio", "network", "temperature", "backlight", "keyboard-state", "sway/language", "battery", "battery#bat2", "tray"],
     "modules-center": ["clock"],
     // Modules configuration
     "keyboard-state": {
@@ -19,39 +19,6 @@
         },
         "tooltip": false
     },
-    //"mpd": {
-    //    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-    //    "format-disconnected": "Disconnected ",
-    //    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-    //    "unknown-tag": "N/A",
-    //    "interval": 2,
-    //    "consume-icons": {
-    //        "on": " "
-    //    },
-    //    "random-icons": {
-    //        "off": "<span color=\"#f53c3c\"></span> ",
-    //        "on": " "
-    //    },
-    //    "repeat-icons": {
-    //        "on": " "
-    //    },
-    //    "single-icons": {
-    //        "on": "1 "
-    //    },
-    //    "state-icons": {
-    //        "paused": "",
-    //        "playing": ""
-    //    },
-    //    "tooltip": false,
-    //},
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        },
-        "tooltip": false,
-    },
     "tray": {
         // "icon-size": 21,
         "spacing": 10,
@@ -60,14 +27,6 @@
     "clock": {
         // "timezone": "America/New_York",
         "format": "{:%H:%M    %Y-%m-%d }",
-        "tooltip": false
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% ",
         "tooltip": false
     },
     "temperature": {
@@ -79,7 +38,7 @@
         "format-icons": ["", "", ""]
     },
     "backlight": {
-        // "device": "acpi_video1",
+        "device": "acpi_video1",
         "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
@@ -92,9 +51,6 @@
         "format": "{capacity}% {icon}",
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
     "battery#bat2": {
@@ -110,12 +66,10 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}  ",
+        "format-bluetooth-muted": "{volume}% 󰖁 {icon}  ",
+        "format-muted": "{volume}% 󰖁",
         "format-icons": {
             "headphone": "",
             "hands-free": "",

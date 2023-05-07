@@ -90,7 +90,7 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment blue black "%B%(!.%{%F{yellow}%}.)%n@%m%b"
+    prompt_segment $bblue black "%B%(!.%{%F{yellow}%}.)%n@%m%b"
   fi
 }
 
@@ -222,7 +222,7 @@ prompt_dir() {
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
   if [[ -n "$VIRTUAL_ENV" && -n "$VIRTUAL_ENV_DISABLE_PROMPT" ]]; then
-    prompt_segment blue black "(${VIRTUAL_ENV:t:gs/%/%%})"
+    prompt_segment $bblue black "(${VIRTUAL_ENV:t:gs/%/%%})"
   fi
 }
 
